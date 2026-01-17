@@ -1,0 +1,31 @@
+{
+  "name": "angular-refresher",
+  "version": "1.0.0",
+  "description": "Angular Refresher Projects",
+  "homepage": "https://github.com/Lukas-Michalek/Angular-Refresher#readme",
+  "bugs": {
+    "url": "https://github.com/Lukas-Michalek/Angular-Refresher/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lukas-Michalek/Angular-Refresher.git"
+  },
+  "license": "MIT",
+  "author": "Lukas Michalek",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint --fix"
+
+
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0",
+    "jiti": "^2.6.1",
+    "typescript-eslint": "^8.53.0"
+  }
+}
