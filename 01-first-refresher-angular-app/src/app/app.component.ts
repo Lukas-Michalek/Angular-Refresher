@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { HeaderComponent } from './header.component';
+import { HeaderComponent } from './header/header.component';
 
 // * @Component is a DECORATOR (TypeScript feature that in the ends add some metadata to the thing that is attached to -> AppComponent in this case)
 
