@@ -18,7 +18,7 @@ export class UserComponent {
   selectedUser = DUMMY_USERS[0]
 
 
-  // This is the logic of the component.
+ // This is the logic of the component.
 
 // Everything inside controls what the template can see and use.
 
@@ -34,10 +34,14 @@ export class UserComponent {
 
 // + As I am refering to the selectedUser proprty from WITHIN THE SAME CLASS (I need this info ftom inside the same class instead of the template) I need to specifiy this by using this keyword! -> This is the JavaScript behaviour!
 
-  get imgePath () {
+  get imagePath () {
 
     return '../../assets/users/' + this.selectedUser.avatar
 
+  }
+
+  onSelectUser() {
+    console.log('User Clicked!')
   }
 
 }

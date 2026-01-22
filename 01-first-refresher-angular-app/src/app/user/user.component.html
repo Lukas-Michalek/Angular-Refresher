@@ -1,10 +1,15 @@
 <div>
-    <button>
+    <button (click)="onSelectUser()">
+
+
         <!-- * Old Version(Messy and not up to best practicies as I want to leave all the computations outside HTML Template) -->
         <!-- <img [src]="'../assets/users/' + selectedUser.avatar"> -->
 
         <!-- INFO - I am using getter like a property so I DO NOT EXECUTE IT like this imagePatch(). So because it is Getter and although it is a function I will still use it as a property -->
-        <img [src]="imgePath">
+        <img
+            [src]="imagePath"
+            [alt]="selectedUser.name"
+        >
         <span>{{ selectedUser.name }}</span>
     </button>
 </div>
@@ -16,5 +21,3 @@
 
 <!-- . Attribute Binding -->
 <!-- . Setting an HTML attribute using data from your component. -->
-
-
