@@ -7,42 +7,39 @@ import { DUMMY_USERS } from '../DUMMY_USERS';
   standalone: true,
   imports: [],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrl: './user.component.css',
 })
-
-
-
-
 export class UserComponent {
+  selectedUser = DUMMY_USERS[0];
 
-  selectedUser = DUMMY_USERS[0]
+  // This is the logic of the component.
 
+  // Everything inside controls what the template can see and use.
 
- // This is the logic of the component.
+  // * So basically ---> “Pick the first user from my fake user list and make it available to the template [user.component.html]”
 
-// Everything inside controls what the template can see and use.
+  // In HTML (user.component.html), we can now use:
+  // <p>{{ selectedUser.name }}</p>
 
-// * So basically ---> “Pick the first user from my fake user list and make it available to the template [user.component.html]”
+  // ! *** GETTER TO COMPUTE IMAGE PATH ***
 
-// In HTML (user.component.html), we can now use:
-// <p>{{ selectedUser.name }}</p>
+  // INFO -> GETTER is a method(function inside a class) that is usable like a property so it does not need to be excecuted explicitly and that is meant to preduce and return new value
 
+  // + As I am refering to the selectedUser proprty from WITHIN THE SAME CLASS (I need this info ftom inside the same class instead of the template) I need to specifiy this by using this keyword! -> This is the JavaScript behaviour!
 
-// ! *** GETTER TO COMPUTE IMAGE PATH ***
-
-// INFO -> GETTER is a method(function inside a class) that is usable like a property so it does not need to be excecuted explicitly and that is meant to preduce and return new value
-
-// + As I am refering to the selectedUser proprty from WITHIN THE SAME CLASS (I need this info ftom inside the same class instead of the template) I need to specifiy this by using this keyword! -> This is the JavaScript behaviour!
-
-  get imagePath () {
-
-    return '../../assets/users/' + this.selectedUser.avatar
-
+  get imagePath() {
+    return '../../assets/users/' + this.selectedUser.avatar;
   }
 
+  
+  
+  
+  // * After user clicks the button, the onSelectUser() is called.
+  // * random number is generated serving as an index, and this will be used to determine random user from the list. This user is then displayed with the name an picture through user.component.html
+  
   onSelectUser() {
-    console.log('User Clicked!')
+    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+
+    this.selectedUser = DUMMY_USERS[randomIndex];
   }
-
 }
-
