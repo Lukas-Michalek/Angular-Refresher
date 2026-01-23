@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+// LEARNING: In order to use signals these needs to be first imported from @angular/core
+
+import { Component, signal, computed } from '@angular/core';
 
 import { DUMMY_USERS } from '../DUMMY_USERS';
 
@@ -10,36 +12,34 @@ import { DUMMY_USERS } from '../DUMMY_USERS';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[0];
+  // * LEARNING: As signal was imported, I can now create Signal Value and store it in a property of my
+  // * LEARNING: component - selectedUser and set up initial value as well
 
-  // This is the logic of the component.
+  // # LEARNING: A signal is a sort of container that contains a value like this initial dummy user and
+  // # LEARNING: when I will change this value, Angular will be notified about this change and Angular
+  // # LEARNING: is then able to identify all the places (for example in the user template) where that
+  // # LEARNING: value is being used (where the signal is being used in the end) and Angular is then able
+  // # LEARNING: to update these places.
 
-  // Everything inside controls what the template can see and use.
+  selectedUser = signal(DUMMY_USERS[0]);
 
-  // * So basically ---> “Pick the first user from my fake user list and make it available to the template [user.component.html]”
+  // * LEARNING: Because selectedUser is now signal I will need to treat that way. This means that while while this was fine in Stated Management change ->  '../../assets/users/' + this.selectedUser.avatar; I need to use computed function instead.
 
-  // In HTML (user.component.html), we can now use:
-  // <p>{{ selectedUser.name }}</p>
+  // INFO: When using this computed function, Angular automatically analyzes whether we are reding some signal value inside of that function we passed to computed and if that is the case, Angular again sets up the subscription to that signal that is being used there => selectedUser() signal in this case, and whenever this signals receives a new value (for example new user and thus change in index) and only then Angular will recompute the image path here and thus it is very effective way of setting up computed value as this value will not be recomputed every time anything changes in this component or the overall application but instead it will be only recomputed if one of the signals used inisde of it changes. Also do not forget to change this in HTML Template so it could be executed in the same way as signal
 
-  // ! *** GETTER TO COMPUTE IMAGE PATH ***
+  imagePath = computed(
+    () => '../../assets/users/' + this.selectedUser().avatar,
+  );
 
-  // INFO -> GETTER is a method(function inside a class) that is usable like a property so it does not need to be excecuted explicitly and that is meant to preduce and return new value
+  // get imagePath() {
+  //   return '../../assets/users/' + this.selectedUser.avatar;
+  // }
 
-  // + As I am refering to the selectedUser proprty from WITHIN THE SAME CLASS (I need this info ftom inside the same class instead of the template) I need to specifiy this by using this keyword! -> This is the JavaScript behaviour!
-
-  get imagePath() {
-    return '../../assets/users/' + this.selectedUser.avatar;
-  }
-
-  
-  
-  
-  // * After user clicks the button, the onSelectUser() is called.
-  // * random number is generated serving as an index, and this will be used to determine random user from the list. This user is then displayed with the name an picture through user.component.html
-  
   onSelectUser() {
     const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
-    this.selectedUser = DUMMY_USERS[randomIndex];
+    // + LEARNING: To change the value of signal, I will need to call set method on that signal object
+
+    this.selectedUser.set(DUMMY_USERS[randomIndex]);
   }
 }

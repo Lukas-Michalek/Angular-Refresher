@@ -1,23 +1,19 @@
 <div>
-    <button (click)="onSelectUser()">
-
-
-        <!-- * Old Version(Messy and not up to best practicies as I want to leave all the computations outside HTML Template) -->
-        <!-- <img [src]="'../assets/users/' + selectedUser.avatar"> -->
-
-        <!-- INFO - I am using getter like a property so I DO NOT EXECUTE IT like this imagePatch(). So because it is Getter and although it is a function I will still use it as a property -->
-        <img
-            [src]="imagePath"
-            [alt]="selectedUser.name"
-        >
-        <span>{{ selectedUser.name }}</span>
-    </button>
+  <button (click)="onSelectUser()">
+    <img
+      [src]="imagePath()"
+      [alt]="selectedUser().name"
+    />
+    <span>{{ selectedUser().name }} </span>
+  </button>
 </div>
 
+<!-- * LEARNING: In order to access the value stored in Signal I need to execute the Signal read function -- selectedUser() -> to get the latest value from it      -->
 
-<!-- * String Interpolation -->
-<!-- * <span>{{ selectedUser.name }}</span> is the explample of string interpolation. -->
-<!-- * In other words: Putting data from the component into HTML. -->
+<!-- # LEARNING: What does this Read here does is that it tells Angular that I am trying to get the value of that signalin this specific place here, in this template and Angular is therefore able to set a subscription behind the scenes which will make sure that this place where that signal value is used - this tamplate in this case will be Re-evaluated (Re-Rendered) and updated on the UI whenever that signal value changes-->
 
-<!-- . Attribute Binding -->
-<!-- . Setting an HTML attribute using data from your component. -->
+<!-- INFO: So Angular sets up a tracking mechanism that automatically make sure that the UI is updated whenever the underlying value change      -->
+
+<!-- + The difference with State Management Mechanism (SMM) is that in SMM the Angular is using Sub Package called Zone.js - an invisible grouping mechanism that is set up behind the scenes by Angular where it listenes for all kinds of events that could trigger state changes (Data Changes that should affect the UI) for example User clicks a button, and Angular goes ahead and checks all the components in that Zone whether some data changes that now needs to be updated on the UI         -->
+
+<!-- * The Advantage of Signals is that Angular can get rid of Zone.js and the Zone concept. So it allows Angular to perform change detection and UI updating in the more effective way    -->
