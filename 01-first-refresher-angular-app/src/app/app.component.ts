@@ -12,6 +12,21 @@ import { DUMMY_USERS } from './DUMMY_USERS';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
+
+
+
+// * 4. When the user clicks a button Event Listener <button (click)="onSelectUser()"> calls the onSelectUser() function located in user.componenet.ts (becasue it is that component that triggers it). This function then emits the value that was sent (in this case user ID) thanks to EventEmitter object that is stored in 'select' property (to create this property and new EventEmitter I need Output decorator). This select property then emits this information (id) to its parent (that is app.component.html) where there is a custom listener (select)="onSelectUser($event) waiting for the change and triggers another EventListener that triggers onSelectUser function located in app.component.ts*
+
+
+
 export class AppComponent {
   users = DUMMY_USERS;
+
+  onSelectUser(id: string){
+
+    console.log('Selected user with id' + id)
+
+  }
+
+
 }

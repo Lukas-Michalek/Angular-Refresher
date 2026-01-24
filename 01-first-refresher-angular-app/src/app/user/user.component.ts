@@ -1,7 +1,14 @@
-// ! Note that Input => Decorator
-// !           input  => function needed for Signals
+//  * 1. *  35. Working with Outputs & Emitting Data  **  //
 
-import { Component, input, computed } from '@angular/core'; 
+// - Note that I will be working with Management State Change rather that signals here
+
+// + The goal here is that after I click a user (user.component.html) I want to show their tasks. This task list will not show inside user component because the user element is only responsoble for outputing the user element (button on UI with avatar and name). Therefore the information that hte user was clicked must get out of the user component and must be passed on to the app component (app.component.ts) because it is the app component that is outputting the user and it is the app component that could then output the tasks of that user nexto to that unordered list in app.component.html
+
+// # So we need to let the app component know when a user is clicked so when the button in the user component is clicked.
+
+// * There is already an event listener in user.component.html ===> <button (click)="onSelectUser()"> but I need to OUTPUT this information that this button was clicked. I will do that with Angular output properties
+
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -10,56 +17,42 @@ import { Component, input, computed } from '@angular/core';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })
+
+
+// * To set up the output property I need to add another regular property I can call it according to the function. The name should describe the custom event I plan on emitting, and because I want to pass the information that a specific user was selected to the component that`s using the UserComponent
+
+// - The select componenet must be decorated with another decorator that is imported from Angular => the Output decorator. Imported like Input decorator and used just like the input.
+
+// # Unlike the input, the select property will receive an initial value. This initial value is a 'new EventEmitter object', where EventEmitter is actually also imported from Angular Core
+
+// + This EventEmitter object ==> @Output select = new EventEmitter(); ==> will then allow me to emit custom values through that select property to any parent component (in this cas app.component) that is interested 
+
+
 export class UserComponent {
-  // @Input({ required: true }) avatar!: string;
-  // @Input({ required: true }) name!: string;
+  @Input({ required: true }) id!: string;
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
 
-  // * LEARNING: When it comes to signals instead of adding Decorator as with State Management, I now assign an initial value to these properties and that value is the result of calling that input function. That internally tells Angular that this avatar property should be an input to this component (user.component), so that it should be settable as an attribute when that componenet is used.
+  @Output() select = new EventEmitter(); 
 
-  // + We can also assign an initial value which will be assumed if no input value has been received yet which could for example be an empty string ===> avatar = input('')
-
-  // - Alternatively I do no need to pass an initial value and therefore the initial value will be undefined, but I can tell TypeScript in the end (and thus Angular) that eventually a value of different type will be received by adding angle brackets where I can set a type of value that will eventually be that input ===>   avatar = input<string>()
-
-  // * We can also mark an input as required by calling input.required(). This is the equivalent with @Input Decorator. When using required function we can not pass an initial value, because if this input is required we are telling angular that it will be set
-
-  // ! @Input({ required: true }) avatar!: string;  ===  avatar = input.required<string>();
- 
-  // # When using signals as inputs, the template behaves same as with Management change. This means that app.component will still use the DUMMY_USERS as before (in app.component.ts this file was imported and stored in users property). We can still use data and preoperty binding and those values does not need to be signals
-
-  // * However, it is important to change the properties back to signal in template (user.component.html) and execute these as functions
-  // * ===> <span>{{ name }} </span>  =====> <span>{{ name() }} </span>
-  // * ===> [alt]="name"              =====> [alt]="name()"
-  // * Since that is how we read signal values and how we get Angular to set up that behind the scenes subscription which does allow it to efficiently update UI 
-
-  avatar = input.required<string>();
-  name = input.required<string>(); 
-
-
-  // + As we are now using signals we also need to use computed function to compute path to images. Also do not forget that this.avatar needs to be called as a signal nad thus 
-  // + ===> this.avatar()
-
-  imagePath = computed(() => {
-    return '../../assets/users/' + this.avatar();
-  })
-
-  // get imagePath() {
-  //   return '../../assets/users/' + this.avatar;
-  // }
+  get imagePath() {
+    return '../../assets/users/' + this.avatar;
+  }
 
   
   
-  // ! Note that the input value could be changed only from outside of this component! The way it works is that we will change the value in app.component, this value is then passed to the user.component and changed.
-  // ! I can not howeer change the value from inside user.component! 
-  // ! This does not work:
+  // * When user clicks a button, Event Listener calls a onSelectUser() function ===> <button (click)="onSelectUser()">   ===> the select property that was set up as EventEmitter object will emit a new value 
 
-  // !  onSelectUser() {
-  // !    this.avatar.set('Wololooo')
-  // !  }
+  // + Now I need to pass the value that should be emitted to this emit method ( .emit() )which is provided by EventEmitter object which is stored in select property.
+  // + As an initial value I am going to use user ID that is one of the properties of each object in DUMMY_USER that will be passed through Input decorator (same as avatar and name). I receive it as an input and pass it back to parent component whenever a user is selected
 
-  // ! Property 'set' does not exist on type 'InputSignal<string>'.
+  // ! 2 ! Go to app.component.html.
 
-  // # The input signals are READ ONLY! They can not be change from inside the componenet where the inputs are registered
+   
   
-  
-  onSelectUser() {}
+  onSelectUser() {
+
+    this.select.emit(this.id)
+
+  }
 }
