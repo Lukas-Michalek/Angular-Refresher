@@ -1,8 +1,6 @@
 // LEARNING: In order to use signals these needs to be first imported from @angular/core
 
-import { Component, signal, computed } from '@angular/core';
-
-import { DUMMY_USERS } from '../DUMMY_USERS';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -11,35 +9,30 @@ import { DUMMY_USERS } from '../DUMMY_USERS';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })
+
+// * LEARNING: In order to accept inputs (input is a property that can be set up from outside, so for example from app.component.html) we need to go to the component that should accept the input ( in this case user.component.ts) and add the property that should be settable from outside
+
+// INFO LEARNING: In this case I want to accept the avatar property so the image of the user as an input. I will do that by creating property (avatar) with another decorator,
+
+// ! LEARNING: Decorator can not only be added to the classes as in Component for example, but also to the properties of the classes as in this case of avatar property. In the case the name of the decorator is Input and this also needs to be imported from @angular/core. Input decorator then behaves similar to Component decorator as it needs to be executed ===> @Input().This will mark then the property avatar as settable from outside (app.component.html for example as it is the parent of user.component)
+
+// * LEARNING: With this input created I can then go to the place I will use this component (app.component.html in this case) and then set the avatar property there and use the property binding as this will be the proeprty that will be updating dynamicaly. I will also have to make sure that app.component.html has access to the DUMMY_USERS and I will do that by importing the DUMMY_USERS file in there (app.component.ts)
+
+// # LEARNING: Note that the avatar property needs to have type. If left like this @Input() avatar it would have type of 'any'. If I have property like this that does not have initial value at the start as this value will be set from outside, typescript complains that it does not know which type of value (string, integer, boolean ...) will eventually be received here and it is kind of Typescript main thing to know which type of value is used where. Therfore I need to explicitly assign value type that will be used in this property.
+
+// H LEARNING: Setting Property:
+// ! LEARNING: @Input avatar: string;    => Typescript now expects that we are going to use a property with the type of String but does not understand that we are using an Angular mechanism for receiving the value of this proeprty. All Typescript sees is that there is no value being set at any point in this component, instead it is and uninitialized property => Property 'avatar' has no initializer and is not definitely assigned in the constructor.
+
+// * LEARNING: To solve this problem I need to add ! after the property name. This is yet another Typescript feature, which simple tells TypeScript that we know that this will definitely be set to some value in the future, even though TypeScript cannot see it in this code yet. But we know that this value will be set from outside (app.component.html)
 export class UserComponent {
-  // * LEARNING: As signal was imported, I can now create Signal Value and store it in a property of my
-  // * LEARNING: component - selectedUser and set up initial value as well
+  @Input() avatar!: string;
+  @Input() name!: string;
 
-  // # LEARNING: A signal is a sort of container that contains a value like this initial dummy user and
-  // # LEARNING: when I will change this value, Angular will be notified about this change and Angular
-  // # LEARNING: is then able to identify all the places (for example in the user template) where that
-  // # LEARNING: value is being used (where the signal is being used in the end) and Angular is then able
-  // # LEARNING: to update these places.
+  // * As I am not using signals in this case I will need to use Getter to calculate the past instead of computed method as I would use in Signals
 
-  selectedUser = signal(DUMMY_USERS[0]);
-
-  // * LEARNING: Because selectedUser is now signal I will need to treat that way. This means that while while this was fine in Stated Management change ->  '../../assets/users/' + this.selectedUser.avatar; I need to use computed function instead.
-
-  // INFO: When using this computed function, Angular automatically analyzes whether we are reding some signal value inside of that function we passed to computed and if that is the case, Angular again sets up the subscription to that signal that is being used there => selectedUser() signal in this case, and whenever this signals receives a new value (for example new user and thus change in index) and only then Angular will recompute the image path here and thus it is very effective way of setting up computed value as this value will not be recomputed every time anything changes in this component or the overall application but instead it will be only recomputed if one of the signals used inisde of it changes. Also do not forget to change this in HTML Template so it could be executed in the same way as signal
-
-  imagePath = computed(
-    () => '../../assets/users/' + this.selectedUser().avatar,
-  );
-
-  // get imagePath() {
-  //   return '../../assets/users/' + this.selectedUser.avatar;
-  // }
-
-  onSelectUser() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-
-    // + LEARNING: To change the value of signal, I will need to call set method on that signal object
-
-    this.selectedUser.set(DUMMY_USERS[randomIndex]);
+  get imagePath() {
+    return '../../assets/users/' + this.avatar;
   }
+
+  onSelectUser() {}
 }
