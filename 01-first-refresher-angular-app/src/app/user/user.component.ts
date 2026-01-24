@@ -25,10 +25,12 @@ import { Component, Input } from '@angular/core';
 
 // * LEARNING: To solve this problem I need to add ! after the property name. This is yet another Typescript feature, which simple tells TypeScript that we know that this will definitely be set to some value in the future, even though TypeScript cannot see it in this code yet. But we know that this value will be set from outside (app.component.html)
 export class UserComponent {
-  @Input() avatar!: string;
-  @Input() name!: string;
+  @Input({required: true}) avatar!: string;
+  @Input({required: true}) name!: string;
 
   // * As I am not using signals in this case I will need to use Getter to calculate the past instead of computed method as I would use in Signals
+
+  // ! Adding {required: true} inside @Input will make TypesCript always require this input and in case I would forgot to add it I will get an error and thus will be able to catch it in advance
 
   get imagePath() {
     return '../../assets/users/' + this.avatar;
