@@ -1,0 +1,59 @@
+<!-- **  35. Working with Outputs & Emitting Data  ** -->
+
+<!--- I have set up EventEmitter object that is stored in proeprty called select. The logic is that everytime the user clicks a button - user.component, na event listener is triggered <button (click)="onSelectUser()"> -- ( click is that event listener) that will call onSelectUser() function. The logic of this function is that it will pass the value of that current user.componenet (id of that user). I will also need to listen for that custom event in app.componenet as that is the parent of user.component  -->
+
+<!--+ To do this I will use event binding on my custom component app-user to listen for this select event because I created in the end custom event called select  -->
+
+<!-- # I can handle this event as any built in event. I can add method the the app.component.ts called onSelectUser -->
+
+<!-- ! 3. ! Go to app.component.ts  -->
+
+
+<!-- * ($event) => In order to get hold of emitted values I need to use a special variables that is provided by Angular ($event). This is a variable provided by Angular in its templates (in the parts where a handle events in the templates). ($event) will then hold the data (the value that was emitted by the event I am listening to) -->
+
+
+<app-header />
+<main>
+  <ul id="users">
+    <li>
+      <app-user
+        [id]="users[0].id"
+        [avatar]="users[0].avatar"
+        [name]="users[0].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[1].id"
+        [avatar]="users[1].avatar"
+        [name]="users[1].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[2].id"
+        [avatar]="users[2].avatar"
+        [name]="users[2].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[3].id"
+        [avatar]="users[3].avatar"
+        [name]="users[3].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[4].id"
+        [avatar]="users[4].avatar"
+        [name]="users[4].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+  </ul>
+</main>
