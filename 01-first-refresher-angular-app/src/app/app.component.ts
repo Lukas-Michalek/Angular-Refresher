@@ -16,25 +16,23 @@ import { TasksComponent } from './tasks/tasks.component';
 export class AppComponent {
   users = DUMMY_USERS;
 
+  // * Another approach on solving this exercise is to send just user id from UserComponent to the AppComponenet(here) and use JavaScript function .find to find a user name by that ID. It will go through every object in the list (DUMMY_USER in this case) so every 'user' and compare the desired property (user ID in this case). If it will find the match it will return TRUE and so that user object (it will be object with id, name and avatar and I will need to extract just name in app-tasks componenet in app.component.html)
 
-// * 2. * As I am receiving more than one property from user.component.ts via EventEmitter (remember this is the Child -> Parent Logic) I will need to store the variable selectedUserName that will be then from AppComponent passed on its child TasksComponent and then it will be shown in tasks.component.html on UI.
+  // # By using getter (standard way to retrieve information when working with state management change) I am able to send it to the component
 
-// ! When receiving more than one property this is the argument syntax event: { id: string; name: string } and to unpack it I will treat it as an object -> event.id and event.name 
-
-// !!! -->   Continue to app.component.html   <--- !!!
-
+  // - Also by putting ! at the end of this.selectedUserId)!  I am letting know that this object will never be unidentified
 
 
-  selectedUserName = '';
 
-  onSelectUser(event: { id: string; name: string }) {
-    this.selectedUserName = event.name;
+  selectedUserId = 'u1';
 
-    console.log(
-      'Selected User ID is ' +
-        event.id +
-        ' and Selected User Name is ' +
-        event.name,
-    );
+  get selectedUserName() {
+    return this.users.find((user) => user.id === this.selectedUserId)!;
+  }
+
+  onSelectUser(id: string) {
+    this.selectedUserId = id;
+    console.log('Selected user id is ' + id);
   }
 }
+ 

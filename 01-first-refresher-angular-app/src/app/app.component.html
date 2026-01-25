@@ -43,10 +43,7 @@
     </li>
   </ul>
 
-  
-  <!-- * 3. * This is the same logic as I used previously in app-user. I created in tasks.component.ts an @Input called name so I can receive the values from its parent that is AppComponent and same as before through String Interpolation I can show the currently clicked user name that will of course change -->
-  
-  <app-tasks [name]="selectedUserName">
+  <app-tasks [name]="selectedUserName.name">
 
   </app-tasks>
 
