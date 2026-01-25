@@ -1,52 +1,40 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
 
 import { DUMMY_USERS } from './DUMMY_USERS';
+import { TasksComponent } from './tasks/tasks.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, UserComponent],
+  imports: [HeaderComponent, UserComponent, TasksComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-
-
-
-// * 4. When the user clicks a button Event Listener <button (click)="onSelectUser()"> calls the onSelectUser() function located in user.componenet.ts (becasue it is that component that triggers it). This function then emits the value that was sent (in this case user ID) thanks to EventEmitter object that is stored in 'select' property (to create this property and new EventEmitter I need Output decorator). This select property then emits this information (id) to its parent (that is app.component.html) where there is a custom listener (select)="onSelectUser($event) waiting for the change and triggers another EventListener that triggers onSelectUser function located in app.component.ts*
-
-// - Visual Representation:
-
-// BUTTON CLICK
-//      ↓
-// child.onSelectUser()
-//      ↓
-// this.select.emit(this.id)
-//      ↓
-// (select)="onSelectUser($event)"
-//      ↓
-// parent receives ID
-
-//+ Simple rule to remember
-
-//+ @Input() → parent → child
-
-//+ @Output() → child → parent
-
-//+ emit() → send data upward
-
-
-
 export class AppComponent {
   users = DUMMY_USERS;
 
-  onSelectUser(id: string){
 
-    console.log('Selected user with id' + id)
+// * 2. * As I am receiving more than one property from user.component.ts via EventEmitter (remember this is the Child -> Parent Logic) I will need to store the variable selectedUserName that will be then from AppComponent passed on its child TasksComponent and then it will be shown in tasks.component.html on UI.
 
+// ! When receiving more than one property this is the argument syntax event: { id: string; name: string } and to unpack it I will treat it as an object -> event.id and event.name 
+
+// !!! -->   Continue to app.component.html   <--- !!!
+
+
+
+  selectedUserName = '';
+
+  onSelectUser(event: { id: string; name: string }) {
+    this.selectedUserName = event.name;
+
+    console.log(
+      'Selected User ID is ' +
+        event.id +
+        ' and Selected User Name is ' +
+        event.name,
+    );
   }
-
-
 }

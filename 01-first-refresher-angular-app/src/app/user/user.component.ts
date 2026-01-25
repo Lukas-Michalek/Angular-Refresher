@@ -1,12 +1,4 @@
-//  * 1. *  35. Working with Outputs & Emitting Data  **  //
-
-// - Note that I will be working with Management State Change rather that signals here
-
-// + The goal here is that after I click a user (user.component.html) I want to show their tasks. This task list will not show inside user component because the user element is only responsoble for outputing the user element (button on UI with avatar and name). Therefore the information that hte user was clicked must get out of the user component and must be passed on to the app component (app.component.ts) because it is the app component that is outputting the user and it is the app component that could then output the tasks of that user nexto to that unordered list in app.component.html
-
-// # So we need to let the app component know when a user is clicked so when the button in the user component is clicked.
-
-// * There is already an event listener in user.component.html ===> <button (click)="onSelectUser()"> but I need to OUTPUT this information that this button was clicked. I will do that with Angular output properties
+// *** 38. Exercise: Create a Configurable Component *** //
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
@@ -17,35 +9,30 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })
-
-// * To set up the output property I need to add another regular property I can call it according to the function. The name should describe the custom event I plan on emitting, and because I want to pass the information that a specific user was selected to the component that`s using the UserComponent
-
-// - The select componenet must be decorated with another decorator that is imported from Angular => the Output decorator. Imported like Input decorator and used just like the input.
-
-// # Unlike the input, the select property will receive an initial value. This initial value is a 'new EventEmitter object', where EventEmitter is actually also imported from Angular Core
-
-// + This EventEmitter object ==> @Output select = new EventEmitter(); ==> will then allow me to emit custom values through that select property to any parent component (in this cas app.component) that is interested
 export class UserComponent {
   @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
 
-  @Output() select = new EventEmitter<string>();
+  @Output() select = new EventEmitter();
 
   get imagePath() {
     return '../../assets/users/' + this.avatar;
   }
 
-  // ! To add extra security and to prevent errors, it is advised to add to the new Emitter object the specific value type I am expected to send. So in this case it is <string> as I am emitting user id which is string and also in app.component.ts the function onSelectUser(id: string) is expecting string. Now if there by accident this.select.emit(this.id) would instead send number tthis.select.emit(3) I would not get error but the program would not work. Now with stating the value type I will get error and can therefore catch this problem.
+  // * 1. * The logic behind this exercise is that, when user clicks a button onSelectUser() method is triggered that will then emit (through new EventEmitter object stored in 'select' variable) id and name of the user that was clicked. Note that all this information (id, avatar and name) are already passed from parent component AppComponent when the app is rendered. AppComponent has access to these information bacouse it was imported in app.component.ts in the form of users list (from DUMMY_USERS). So all these information are avaialable in this compononet (user.component.ts).
 
-  // * When user clicks a button, Event Listener calls a onSelectUser() function ===> <button (click)="onSelectUser()">   ===> the select property that was set up as EventEmitter object will emit a new value
+  // - By using @Input I am receiving data from parent to child. My task is to send data (name and id) from  child to parent. That is why I need event emitter and @Output, to emit the data to parent that is AppComponent
 
-  // + Now I need to pass the value that should be emitted to this emit method ( .emit() )which is provided by EventEmitter object which is stored in select property.
-  // + As an initial value I am going to use user ID that is one of the properties of each object in DUMMY_USER that will be passed through Input decorator (same as avatar and name). I receive it as an input and pass it back to parent component whenever a user is selected
+  // # I have decided to send more than just name (id too). In order to send more than one property, I need to send them in object this.select.emit({ id: this.id, name: this.name,}). As can be seen in app.component.ts the function the onSelectUser in there need to be changed as well to ===> onSelectUser(event: { id: string; name: string }). In app.component.html that is the parent of UserComponent sending the data nothing changes and I am still using (select)="onSelectUser($event)" as before, but now the whole object is being send as event.
 
-  // ! 2 ! Go to app.component.html.
+  // !!! --> Continue to app.component.ts <--- !!!
 
   onSelectUser() {
-    this.select.emit(this.id);
+    this.select.emit({
+      id: this.id,
+
+      name: this.name,
+    });
   }
 }
