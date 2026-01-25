@@ -1,0 +1,53 @@
+<app-header />
+<main>
+  <ul id="users">
+    <li>
+      <app-user
+        [id]="users[0].id"
+        [avatar]="users[0].avatar"
+        [name]="users[0].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[1].id"
+        [avatar]="users[1].avatar"
+        [name]="users[1].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[2].id"
+        [avatar]="users[2].avatar"
+        [name]="users[2].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[3].id"
+        [avatar]="users[3].avatar"
+        [name]="users[3].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [id]="users[4].id"
+        [avatar]="users[4].avatar"
+        [name]="users[4].name"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+  </ul>
+
+  
+  <!-- * 3. * This is the same logic as I used previously in app-user. I created in tasks.component.ts an @Input called name so I can receive the values from its parent that is AppComponent and same as before through String Interpolation I can show the currently clicked user name that will of course change -->
+  
+  <app-tasks [name]="selectedUserName">
+
+  </app-tasks>
+
+</main>
