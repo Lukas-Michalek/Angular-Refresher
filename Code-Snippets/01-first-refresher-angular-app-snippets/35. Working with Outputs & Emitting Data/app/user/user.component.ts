@@ -33,13 +33,16 @@ export class UserComponent {
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
 
-  @Output() select = new EventEmitter(); 
+  @Output() select = new EventEmitter<string>(); 
 
   get imagePath() {
     return '../../assets/users/' + this.avatar;
   }
 
   
+  // ! To add extra security and to prevent errors, it is advised to add to the new Emitter object the specific value type I am expected to send. So in this case it is <string> as I am emitting user id which is string and also in app.component.ts the function onSelectUser(id: string) is expecting string. Now if there by accident this.select.emit(this.id) would instead send number tthis.select.emit(3) I would not get error but the program would not work. Now with stating the value type I will get error and can therefore catch this problem.
+
+
   
   // * When user clicks a button, Event Listener calls a onSelectUser() function ===> <button (click)="onSelectUser()">   ===> the select property that was set up as EventEmitter object will emit a new value 
 
