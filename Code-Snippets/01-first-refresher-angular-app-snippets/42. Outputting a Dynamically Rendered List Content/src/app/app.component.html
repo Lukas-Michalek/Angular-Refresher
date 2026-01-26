@@ -1,0 +1,32 @@
+<!-- *1*  42. Outputting a Dynamically Rendered List Content -->
+
+<!-- # To render list dynamicaly I need to use a special Angular syntax -> @for loop with tracking mechanism ===> @for (item of items; track $index) -->
+
+<!-- + From above note that 'item' is a word up to me and 'items' is the name of that specific list I will go through (DUMMY_USERS that are stored in variable 'users'). The last part I would need is a way to track these items and it has to be something they have unique .... in this case it is user ID -->
+<app-header />
+
+<main>
+  <ul id="users">
+
+    @for ( user of users; track user.id) {
+    <li>
+      <app-user
+        [user]="user"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    }
+
+  </ul>
+
+  <app-tasks [name]="selectedUserName ? selectedUserName.name : ''">
+
+    <!--* If the selectedUserName is defined use the value  selectedUserName.name and if it is undefined use undefined as a fallback value-->
+
+    <!-- - [name]="selectedUserName?.name" is the same as [name]="selectedUserName ? selectedUser.name : ''"-->
+
+    <!-- - <app-tasks [name]="selectedUserName.name"> -->
+
+  </app-tasks>
+
+</main>
