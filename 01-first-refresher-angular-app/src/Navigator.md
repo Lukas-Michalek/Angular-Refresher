@@ -1,17 +1,14 @@
-# 41. TypeScript: Type Aliases & Interfaces
+# 42. Outputting a Dynamically Rendered List
 
 <br>
 
 ## Comit Focus
 
-To demonstrate the difference between Type Aliases and Interfaces.
-
-The important thing to note is that, in most cases, it does not matter which approach is used. It is more common t osee Interfaces though.
-
-More explanation can be found at:
-
-[Interfaces vs Types in TypeScript](https://stackoverflow.com/questions/37233735/interfaces-vs-types-in-typescript/52682220#52682220)
+To demonstrate how a list of users can be generated dynamically using the **`@for loop`** instead of manually typing every object from the DUMMY_USERS list. This is especially useful when the list is not static, but rather a dynamic collection where items can be added or removed.
 
 <br>
 
-### Start in [user.component.ts](../src/app/user/user.component.ts)
+This part also explains how the **`@for loop`** and the **`track mechanism`** work.
+<br>
+
+### Start in [app.component.html](../src/app/app.component.html)
