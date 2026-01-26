@@ -1,0 +1,46 @@
+<app-header />
+<main>
+  <ul id="users">
+    <li>
+      <app-user
+        [user]="users[0]"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [user]="users[1]"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [user]="users[2]"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [user]="users[3]"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [user]="users[4]"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+  </ul>
+
+  <app-tasks [name]="selectedUserName ? selectedUserName.name : ''">
+
+    <!--* If the selectedUserName is defined use the value  selectedUserName.name and if it is undefined use undefined as a fallback value-->
+
+    <!-- - [name]="selectedUserName?.name" is the same as [name]="selectedUserName ? selectedUser.name : ''"-->
+
+    <!-- - <app-tasks [name]="selectedUserName.name"> -->
+
+  </app-tasks>
+
+</main>
