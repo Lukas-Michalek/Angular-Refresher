@@ -35,4 +35,3 @@ export class AppComponent {
     console.log('Selected user id is ' + id);
   }
 }
- 

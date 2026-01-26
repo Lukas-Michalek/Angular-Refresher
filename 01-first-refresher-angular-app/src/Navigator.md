@@ -1,19 +1,9 @@
-# Exercise
-
-In this commit the main focus was to demonstrate my ability through exercise where I had to create and use a **`Tasks`** component (app-tasks).
-
+# 40. Accepting Objects As Inputs & Adding Appropriate Typings
 <br>
 
-The main goal is to Receive and Output the name of the selected user
+## Comit Focus
 
-![alt text](image-1.png)
+The main focus is to explain how to pass object as an Input instead of specific properties of that object.
 
-<br>
+For Example instead of passing id, avatar and name of the user, we would pass the whole user object instead
 
-![alt text](image-2.png)
-
-<br>
-
-### This is my solution.
-
-Start in 
