@@ -1,14 +1,16 @@
-# 42. Outputting a Dynamically Rendered List
+# 43. Outputting Conditional Content
 
 <br>
 
 ## Comit Focus
 
-To demonstrate how a list of users can be generated dynamically using the **`@for loop`** instead of manually typing every object from the DUMMY_USERS list. This is especially useful when the list is not static, but rather a dynamic collection where items can be added or removed.
+To demonstrate the ability to output conditional content (content that should be rendered only under certain circumstances):
+
+In this case, I am showcasing that the AppTasks component is rendered only if a user is selected (for now, it only displays the user’s name). If no user is selected, a fallback text appears: “Select a user to see their tasks.”
 
 <br>
 
-This part also explains how the **`@for loop`** and the **`track mechanism`** work.
+The code is set up so that no initial value is assigned to selectedUserId?. Therefore, before clicking the button, no user ID is sent to UserComponent, which would otherwise emit this value back to AppComponent. AppComponent then passes this ID to TasksComponent to render the selected user’s name. As a result, only the fallback text “Select a user to see their tasks.” is displayed initially.
 <br>
 
-### Start in [app.component.html](../src/app/app.component.html)
+### Start in [app.component.ts](../src/app/app.component.ts)

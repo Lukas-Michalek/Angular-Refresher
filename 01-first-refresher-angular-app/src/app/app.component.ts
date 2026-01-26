@@ -6,6 +6,9 @@ import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './DUMMY_USERS';
 import { TasksComponent } from './tasks/tasks.component';
 
+
+// * 1. *** 43. Outputting Conditional Content *** //
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,17 +19,26 @@ import { TasksComponent } from './tasks/tasks.component';
 export class AppComponent {
   users = DUMMY_USERS;
 
-  // * Another approach on solving this exercise is to send just user id from UserComponent to the AppComponenet(here) and use JavaScript function .find to find a user name by that ID. It will go through every object in the list (DUMMY_USER in this case) so every 'user' and compare the desired property (user ID in this case). If it will find the match it will return TRUE and so that user object (it will be object with id, name and avatar and I will need to extract just name in app-tasks componenet in app.component.html)
 
-  // # By using getter (standard way to retrieve information when working with state management change) I am able to send it to the component
+// - This way, the property `selectedUserId` is always assigned the initial value `'u1'`, and therefore the `TasksComponent` would always be rendered with user1.
 
-  // - Also by putting ! at the end of this.selectedUserId)!  I am letting know that this object will never be unidentified
-
+// selectedUserId = 'u1';
 
 
-  selectedUserId = 'u1';
+// # However, if I declare the property `selectedUserId` this way (`selectedUserId?: string;`), I am not assigning any initial value at all. In this case, the `TasksComponent` would be  rendered, but it would be empty while still being present in the UI.
 
-  get selectedUserName() {
+
+// * The question mark makes the property optional. That means the property may exist, or it may be `undefined`. It is equivalent to this: selectedUserId: string | undefined;
+
+
+// ! selectedUserId?: string === selectedUserId: string | undefined
+
+selectedUserId?: string;
+
+
+// ! Continue to app.component.html
+ 
+  get selectedUser() {
     return this.users.find((user) => user.id === this.selectedUserId)!;
   }
 
