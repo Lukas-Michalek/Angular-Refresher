@@ -1,9 +1,17 @@
-# 40. Accepting Objects As Inputs & Adding Appropriate Typings
+# 41. TypeScript: Type Aliases & Interfaces
+
 <br>
 
 ## Comit Focus
 
-The main focus is to explain how to pass object as an Input instead of specific properties of that object.
+To demonstrate the difference between Type Aliases and Interfaces.
 
-For Example instead of passing id, avatar and name of the user, we would pass the whole user object instead
+The important thing to note is that, in most cases, it does not matter which approach is used. It is more common t osee Interfaces though.
 
+More explanation can be found at:
+
+[Interfaces vs Types in TypeScript](https://stackoverflow.com/questions/37233735/interfaces-vs-types-in-typescript/52682220#52682220)
+
+<br>
+
+### Start in [user.component.ts](../src/app/user/user.component.ts)
