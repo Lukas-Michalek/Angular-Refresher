@@ -1,0 +1,33 @@
+<app-header />
+
+<main>
+  <ul id="users">
+
+    @for ( user of users; track user.id) {
+    <li>
+      <app-user
+        [user]="user"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    }
+
+  </ul>
+
+  <!-- *2.* In order to render the component conditionally, I will use @if, @else if, and @else, just like in JavaScript -->
+
+  <!-- - If `selectedUser` is defined (I could also check `selectedUserId`, but if `selectedUserId` in `app.component.ts` is `undefined`, the `selectedUser` object will also be `undefined` because it has no ID. Therefore, it does not matter which one I check.) -->
+
+  <!-- + [name]="selectedUserName ? selectedUserName.name : ''" can now be simplified, because I know that if the user is defined, the `@if` condition passes. Therefore, there is no longer a need  for fallback code (in this case, an empty string ''). -->
+
+  @if(selectedUser){
+
+  <app-tasks [name]="selectedUser.name" />
+
+  } @else {
+
+  <p id="fallback">Select an user to see their tasks.</p>
+
+  }
+
+</main>
