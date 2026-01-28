@@ -1,0 +1,21 @@
+<!-- <div>
+  <button (click)="onSelectUser()">
+    <img
+      [src]="imagePath"
+      [alt]="name"
+    />
+    <span>{{ name }} </span>
+  </button>
+</div> -->
+
+<!--- Because I am now using user type as an input code needs to be adjusted accordingly -->
+
+<div>
+  <button (click)="onSelectUser()">
+    <img
+      [src]="imagePath"
+      [alt]="user.name"
+    />
+    <span>{{ user.name }} </span>
+  </button>
+</div>
