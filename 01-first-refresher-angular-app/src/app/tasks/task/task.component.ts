@@ -1,5 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+  interface UserTask {
+
+    id: string,
+    userId: string,
+    title: string,
+    summary:string,
+    dueDate: string,
+
+  }
 @Component({
   selector: 'app-task',
   standalone: true,
@@ -8,5 +17,7 @@ import { Component } from '@angular/core';
   styleUrl: './task.component.css'
 })
 export class TaskComponent {
+
+  @Input ({required:true}) UserTask! : UserTask;
 
 }
