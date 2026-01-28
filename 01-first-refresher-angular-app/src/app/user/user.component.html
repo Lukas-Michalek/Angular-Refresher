@@ -1,17 +1,14 @@
-<!-- <div>
-  <button (click)="onSelectUser()">
-    <img
-      [src]="imagePath"
-      [alt]="name"
-    />
-    <span>{{ name }} </span>
-  </button>
-</div> -->
+<!-- ************************************************************************************************ -->
 
-<!--- Because I am now using user type as an input code needs to be adjusted accordingly -->
+<!-- *4* I can add a class conditionally to an element using a special property binding syntax. -->
+
+<!-- # ===> [class.name_of_class]="true/false" -->
 
 <div>
-  <button (click)="onSelectUser()">
+  <button
+    [class.active]="selected"
+    (click)="onSelectUser()"
+  >
     <img
       [src]="imagePath"
       [alt]="user.name"
