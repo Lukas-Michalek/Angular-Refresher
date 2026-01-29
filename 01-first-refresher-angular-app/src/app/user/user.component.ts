@@ -12,13 +12,10 @@ export class UserComponent {
   @Input({ required: true }) user!: User;
 
 
-// * 2. * By creating the selected property (note that the ! tells TypeScript that the value will definitely be set). 
-
-// ! Continue to app.component.html
 
   @Input ({required:true}) selected!: boolean;
 
-  @Output() select = new EventEmitter();
+  @Output() select = new EventEmitter<string>();
 
   get imagePath() {
     return '../../assets/users/' + this.user.avatar;

@@ -24,13 +24,11 @@ export class AppComponent {
 
   // ! Continue to user.component.ts
 
-
   get selectedUser() {
     return this.users.find((user) => user.id === this.selectedUserId)!;
   }
 
   onSelectUser(id: string) {
     this.selectedUserId = id;
-    console.log('Selected user id is ' + id);
   }
 }

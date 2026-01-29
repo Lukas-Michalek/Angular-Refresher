@@ -13,7 +13,10 @@
     {
 
     <li>
-      <app-task [UserTask]="task">
+      <app-task
+        [UserTask]="task"
+        (complete)="onCompleteTask($event)"
+      >
 
       </app-task>
     </li>}

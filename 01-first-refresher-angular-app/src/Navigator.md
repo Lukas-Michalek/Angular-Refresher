@@ -1,39 +1,20 @@
-# 49. Dynamic CSS Styling with Class Bindings
+# 50. Deleting Tasks
 
 ## Commit Focus
 
-The main purpose of this commit is to clearly indicate which user is selected. When a user is clicked via the `(click)="onSelectUser()"` event, the active user remains highlighted.
+When the user clicks the Complete button located in `task.component.html`, the `TaskComponent` will be removed.
 <br>
 
-To achieve this, a special CSS class called `.active` was created in `user.component.css`. For this class to be applied, a condition must be satisfied (the user is clicked and therefore active).
+## Logic behind it
 
-<br>
-
-In Angular, dynamic CSS styling with class bindings means that you add or remove CSS classes in the template based on component data (booleans, values, functions, signals, etc.). This allows the UI to react to state changes (selected, active, error, done, etc.).
-
-<br>
-
-## 1) `[class]` for a single dynamic class
-
-```ts
-<button [class.active]="isActive">Save</button>
-```
-
-```ts
-isActive = true;
-```
+When the user clicks the **Complete** button, `onCompleteTask()` is called. This then, in `task.component.ts`, triggers the already created `EventEmitter` stored in the `complete` variable, and an **$event** (the task ID of the task that was currently clicked) is then emitted to the `TaskComponent`.
 
 <br>
 
-If `isActive` is `true`, the button receives the `active` class.
-If it is `false`, the class is not applied.
+In `tasks.component.html`, there is a listener `(complete)="onCompleteTask($event)"` that triggers `onCompleteTask(id: string)` in `tasks.component.ts`.
 
-## 2) `[class.className]` (most common approach)
+<br>
 
-This is the clearest and most readable way to toggle a single class.
+This then filters through all the tasks and keeps only those whose task ID is different from the one that was emitted when the user clicked the **Complete** button. As a result, the task with that ID is removed, and only the remaining tasks in the list are re-rendered, effectively removing that task and its component from the UI.
 
-```html
-<li class.selected="user.id === selectedUserId">{{ user.name }}</li>
-```
-
-### Start At [app.component.ts](../src/app/app.component.ts)
+### Start At []()
