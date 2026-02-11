@@ -1,13 +1,9 @@
-<!-- ************************************************************************************************ -->
-
-<!-- *4* I can add a class conditionally to an element using a special property binding syntax. -->
-
-<!-- # ===> [class.name_of_class]="true/false" -->
 
 <div>
   <button
     [class.active]="selected"
     (click)="onSelectUser()"
+
   >
     <img
       [src]="imagePath"

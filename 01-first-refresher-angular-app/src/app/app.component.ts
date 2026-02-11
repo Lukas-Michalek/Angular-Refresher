@@ -18,17 +18,21 @@ export class AppComponent {
 
   selectedUserId?: string;
 
-  // *1* 49. Dynamic CSS Styling with Class Bindings
-
-  // # I know exactly which user was clicked, and therefore I can use this information to determine whether the class will be turned on.
-
-  // ! Continue to user.component.ts
-
-  get selectedUser() {
-    return this.users.find((user) => user.id === this.selectedUserId)!;
-  }
+  isNewTaskClicked = false;
 
   onSelectUser(id: string) {
     this.selectedUserId = id;
+  }
+
+  onCloseNewTask() {
+    this.isNewTaskClicked = false;
+  }
+
+  onAddNewTask() {
+    this.isNewTaskClicked = true;
+  }
+
+  get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId)!;
   }
 }

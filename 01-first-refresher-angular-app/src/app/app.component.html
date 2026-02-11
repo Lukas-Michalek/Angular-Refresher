@@ -2,41 +2,26 @@
 
 <main>
   <ul id="users">
-    
-
-<!-- ************************************************************************************************ -->
-
-<!-- * 3. * Logic behind determining if boolean [selected] is true or not is in the fact that @for loops through the users list user by user and compares the ID of the current user with the ID of the user we have currently selected (this information is provided by the (select) event listener, where UserComponent passes that information through the event listener object stored in selected, and therefore selectedUserId is populated and made available to AppComponent), and when these two are the same, I know that the current user was clicked and the [selected] property will be set to true.-->
-
-<!-- # This will then be used in user.component.html -->
-
-<!-- ! Continue to user.component.html -->
-
-<!-- ************************************************************************************************ -->
-
-    @for ( user of users; track user.id) {
-    <li>
-      <app-user
-        [user]="user"
-        [selected]="user.id === selectedUserId"
-        (select)="onSelectUser($event)"
-      />
-    </li>
+    @for (user of users; track user.id) {
+      <li>
+        <app-user
+          [user]="user"
+          [selected]="user.id === selectedUserId"
+          (select)="onSelectUser($event)"
+          (closeNewTask)="onCloseNewTask()"
+        />
+      </li>
     }
-
   </ul>
 
-  @if(selectedUser){
-
-  <app-tasks
-    [name]="selectedUser.name"
-    [selectedUserID]="selectedUser.id"
-  />
-
+  @if (selectedUser) {
+    <app-tasks
+      [name]="selectedUser.name"
+      [selectedUserID]="selectedUser.id"
+      [isNewTaskClicked]="isNewTaskClicked"
+      (newTaskClicked)="onAddNewTask()"
+    />
   } @else {
-
-  <p id="fallback">Select an user to see their tasks.</p>
-
+    <p id="fallback">Select an user to see their tasks.</p>
   }
-
 </main>

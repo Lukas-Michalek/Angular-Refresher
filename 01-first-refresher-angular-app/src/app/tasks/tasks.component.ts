@@ -1,16 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) selectedUserID!: string;
+  @Input({ required: true }) isNewTaskClicked!: boolean;
+
+  @Output() newTaskClicked = new EventEmitter<void>();
 
   tasks = [
     {
@@ -42,12 +46,22 @@ export class TasksComponent {
     return this.tasks.filter((task) => task.userId === this.selectedUserID);
   }
 
-  
-  // * Go through all the tasks in the list and save only those tasks to a new list where the ID of the task is not the same as the ID that was emitted (the user clicked the Complete button, which then emitted the ID of that task all the way here).
-  
   onCompleteTask(id: string) {
     console.log('The ID of this task is: ' + id);
 
     this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  onSelectUser({ id, name }: { id: string; name: string }) {
+    console.log(
+      'The data transmitted from new-task component to tasks are: ' +
+        id +
+        ' and ' +
+        name,
+    );
+  }
+
+  onAddNewTask() {
+    this.newTaskClicked.emit();
   }
 }
