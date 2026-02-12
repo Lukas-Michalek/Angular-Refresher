@@ -12,9 +12,8 @@ import { NewTaskComponent } from './new-task/new-task.component';
 export class TasksComponent {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) selectedUserID!: string;
-  @Input({ required: true }) isNewTaskClicked!: boolean;
 
-  @Output() newTaskClicked = new EventEmitter<void>();
+  isNewTaskCreated = false;
 
   tasks = [
     {
@@ -61,7 +60,11 @@ export class TasksComponent {
     );
   }
 
-  onAddNewTask() {
-    this.newTaskClicked.emit();
+  onNewTaskCreate() {
+    this.isNewTaskCreated = true;
+  }
+
+  onNewTaskCancel() {
+    this.isNewTaskCreated = false;
   }
 }

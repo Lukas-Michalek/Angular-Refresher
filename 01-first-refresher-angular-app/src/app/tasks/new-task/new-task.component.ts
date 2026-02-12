@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-new-task',
@@ -8,16 +8,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './new-task.component.css',
 })
 export class NewTaskComponent {
-  @Input({ required: true }) name!: string;
-  @Input({ required: true }) selectedUserID!: string;
 
-  // @Output() newTaskClicked = new EventEmitter<void>();
+  @Output() newTaskCancel = new EventEmitter<void>();
 
-  // onAddNewTask() {
-  //   console.log('Task Created');
-  //   console.log('Name is: ' + this.name);
-  //   console.log('selectedUserID is: ' + this.selectedUserID);
 
-  //   this.newTaskClicked.emit();
-  // }
+  onNewTaskCancel() {
+
+    this.newTaskCancel.emit()
+
+
+  }
+
 }

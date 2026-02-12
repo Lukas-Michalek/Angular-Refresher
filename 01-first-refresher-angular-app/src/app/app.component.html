@@ -8,7 +8,6 @@
           [user]="user"
           [selected]="user.id === selectedUserId"
           (select)="onSelectUser($event)"
-          (closeNewTask)="onCloseNewTask()"
         />
       </li>
     }
@@ -18,8 +17,6 @@
     <app-tasks
       [name]="selectedUser.name"
       [selectedUserID]="selectedUser.id"
-      [isNewTaskClicked]="isNewTaskClicked"
-      (newTaskClicked)="onAddNewTask()"
     />
   } @else {
     <p id="fallback">Select an user to see their tasks.</p>

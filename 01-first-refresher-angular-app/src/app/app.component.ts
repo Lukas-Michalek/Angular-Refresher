@@ -24,13 +24,6 @@ export class AppComponent {
     this.selectedUserId = id;
   }
 
-  onCloseNewTask() {
-    this.isNewTaskClicked = false;
-  }
-
-  onAddNewTask() {
-    this.isNewTaskClicked = true;
-  }
 
   get selectedUser() {
     return this.users.find((user) => user.id === this.selectedUserId)!;
