@@ -1,22 +1,27 @@
-# 51. Add New Task - Second Variant
+# 53a. Using Directives & Two-Way-Binding through State Management
 
 ## Commit Focus
 
-This is the second Variant of the same problem - Adding New Task. In this version New Task is rendered as a Modal Dialog and the task is to close it either by clicking cancel button or by clicking on backdrop. 
-## Logic behind it 
+To showcase two-way binding, the user can enter text using the ngModel directive and the FormsModule, which is designed to handle user input.
 
-In this version a Modal Container is created so when the user clicks Add New Task located in **TasksComponent** `onNewTaskCreate()` is triggered, that in turn turns `isNewTaskCreated` to TRUE and as there was a change Angular rerenders the whole app and when it will get to **TasksComponent** again, it satisfies the condition `@if (isNewTaskCreated)` and creates new element / component called **NewTaskComponent**. 
+## Logic behind it
 
-<br>
-
-This component then creates **Backdrop Div** (this is just container div taking the whole width and height of the screen and its main duty is to block with interaction of any other element on UI ) and **Dialog Div** (its main duty is to be displayed on top of **Backdrop Div** so user can interact with this element).
+**Two-way binding is the combination of property and event binding.**
 
 <br>
 
-In order to hide the **NewTaskComponent** and return back to app user can either click on **Backdrop Div** or **Cancel Button** triggering `onNewTaskCancel()` that will turn **isNewTaskCreated** to FALSE and as there was yet another change, when the app comes to the **TasksComponent** `@if (isNewTaskCreated)` automatically fails, **NewTaskComponent** is not created and instead a list of user tasks is presented.
+**To use two-way binding:**
 
-<br>
+- We need to `import { FormsModule } from '@angular/forms';`
+- a property needs to be created in Component class (TypeScript file) for example enteredText.
+- We do not need input property as the property **enterText** will be used in Template of the same component (in other words User will type in the information in new-task.html and property will be handled by new-task.ts so we are not emitting anything and we are not getting inputs passed down by parent component)
+- In order to make sure that every keystroke user makes is registered the **enteredText** property needs to be updated with each keystroke. For this I will need **Directive** of which main focus is to enhance the component when it comes to user input called **[(ngModel)]** that will be located in Template of that component -> **new-task.html**
+- In other words ... Directive **ngModel** is something that`s placed on input element to add extra feature and properties to that element under the hood, behind the scenes
+- As Angular cannot detect **[(ngModel)]**, it must be registered in Component Class file as mentioned above through `import { FormsModule } from '@angular/forms';` and then added to component imports => `imports: [FormsModule],`
 
-The reason why I have `@if (isNewTaskCreated)` only to create **NewTaskComponent** is that when this element is created it basically blocks user from interacting with anything else, and although list of tasks is created as well the user is focused only on Modal Container.
 
+**Two way bindings by using Signal**
+
+It is the same as with State management. The only difference is that in Component Class (.ts file) I need to specify that I am using signals as can be seen in this exercise. 
+ 
 ### Start At []()
